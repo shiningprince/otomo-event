@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大友啓史監督と過ごす特別な夜 ― 映画業界交流会</title>
+<style>
+  :root {
+    --bg: #F4E4BC;
+    --card: #FFFBF0;
+    --card-highlight: #FFF3D6;
+    --gold: #9C6B16;
+    --dark: #2A1F0F;
+    --body-text: #4A3B22;
+    --gray: #7A6A4A;
+    --border: #E8DCC0;
+    --band: #6B4A12;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1c140a;
+  }
+
+  .page {
+    display: flex;
+    justify-content: center;
+    padding: 28px 14px;
+    overflow-x: auto;
+  }
+
+  /* .scale-wrap sizes the space the scaled stage will occupy in the page.
+     .stage is always exactly 1600x900px, then scaled down by .scale-wrap's transform
+     to fit the viewport. This keeps every px font-size and px spacing value
+     in a fixed, predictable ratio to every other element — nothing inside
+     .stage ever reflows or squeezes independently. */
+  .scale-wrap {
+    width: 1600px;
+    height: 900px;
+    flex-shrink: 0;
+  }
+
+  .stage {
+    width: 1600px;
+    height: 900px;
+    background: var(--bg);
+    box-shadow: 0 14px 50px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: top left;
+  }
+
+  .band { flex: 0 0 11px; background: var(--band); }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 64px;
+    padding-top: 24px;
+    min-height: 0;
+  }
+
+  /* "映画業界交流会" — small label above the title */
+  .eyebrow {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin: 0 0 0.9%;
+  }
+
+  /* "大友啓史監督と過ごす特別な夜" — main headline */
+  h1.title {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 57px;
+    color: var(--dark);
+    margin: 0 0 1%;
+    line-height: 1.2;
+  }
+
+  /* Italic sentence below the headline */
+  .hook {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.55;
+    color: var(--body-text);
+    margin: 0 0 2.2%;
+  }
+
+  .venue-strip {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 1.2% 1.5%;
+    text-align: center;
+    margin-bottom: 2.4%;
+  }
+
+  /* Date / venue line inside the cream strip */
+  .venue-text {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 23px;
+    color: var(--body-text);
+    margin: 0;
+  }
+  .venue-time {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 18px;
+    color: var(--gray);
+    margin: 4px 0 0;
+  }
+
+  .cards {
+    display: flex;
+    gap: 1.1%;
+    margin-bottom: 2%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .card {
+    border-radius: 14px;
+    background: var(--card);
+    border: 1.3px solid var(--border);
+    flex: 1;
+    padding: 0.8% 1.3% 2.2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 0;
+  }
+  .card.featured {
+    background: var(--card-highlight);
+    border: 2.6px solid var(--gold);
+    flex: 1.52;
+  }
+
+  /* "PART 1" / "PART 2" / "PART 3" small label in each card */
+  .part-tag {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin: 0 0 10px;
+  }
+
+  /* Bold title inside each card (e.g. "懇親会 - 新形式") */
+  .part-title {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--dark);
+    line-height: 1.4;
+    margin: 0 0 11px;
+  }
+
+  /* Body paragraph in PART 1 and PART 3 cards (narrow cards) */
+  .part-body {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--body-text);
+    margin: 10px 0 0;
+  }
+  /* Body paragraph in PART 2 card ONLY (the wider, highlighted card) — this is the one that was overflowing */
+  .card.featured .part-body {
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+  }
+
+  .footer-strip {
+    background: var(--card);
+    border: 1.3px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 1.6% 1.8%;
+    margin-bottom: 2.7%;
+    flex: 0 0 auto;
+  }
+
+  .fee-block {
+    text-align: center;
+    flex: 0 0 auto;
+    padding-right: 1.8%;
+    border-right: 1.3px solid var(--border);
+  }
+
+  /* "参加費" and "事前登録制..." labels in the footer */
+  .fee-label, .reg-label {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  /* "¥5,000" big number */
+  .fee-amount {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: var(--gold);
+    margin: 0;
+  }
+
+  .reg-block {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* "メール・電話での..." small note under the registration label */
+  .reg-note {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 22px;
+    color: var(--body-text);
+    margin: 6px 0 0;
+    line-height: 1.4;
+  }
+
+  /* Text inside the dark RSVP button */
+  .rsvp-btn {
+    flex: 0 0 auto;
+    background: var(--dark);
+    border-radius: 14px;
+    color: var(--bg);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-decoration: none;
+    padding: 1.4% 2%;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-toggle {
+    text-align: center;
+    padding: 16px 0 0;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+  }
+  .lang-toggle a {
+    color: #c9a86a;
+    text-decoration: none;
+    border-bottom: 1px solid #c9a86a;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="scale-wrap">
+  <div class="stage" id="stage">
+    <div class="band"></div>
+
+    <div class="content">
+      <p class="eyebrow">映画業界交流会</p>
+      <h1 class="title">大友啓史監督と過ごす特別な夜</h1>
+      <p class="hook">「るろうに剣心」を大ヒット作へと導いた監督から、独立への道、代表作の舞台裏、そして今後の展望について直接聞ける貴重な機会。同業者と交流し、新たな仲間と出会える一夜です。</p>
+
+      <div class="venue-strip">
+        <p class="venue-text">📅&nbsp; 2026年7月17日（金）&nbsp;&nbsp;&nbsp;📍&nbsp; Global Village 有楽町ハウス（有楽町電気ビル北館2F）</p>
+        <p class="venue-time">🕕&nbsp; 開場 18:00　プログラム 18:30〜21:30</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <p class="part-tag">PART 1</p>
+          <p class="part-title">懇親会 ‐ 新形式</p>
+          <p class="part-body">飲み放題でスタート。<br>ホスト：ジェフリー・ボシエール（元20世紀FOX・IMAX・Hulu 日本代表)</p>
+        </div>
+        <div class="card featured">
+          <p class="part-tag">PART 2</p>
+          <p class="part-title">特別ゲストインタビュー　＊日本語のみ</p>
+          <p class="part-body">ゲスト：大友啓史監督（映画監督・脚本家）。NHK大河ドラマ「龍馬伝」、経済ドラマ「ハゲタカ」等を手がけ、ハリウッド研修を経て独立。「るろうに剣心」シリーズの制作秘話とワーナー・ブラザーズとの歴史的契約。聞き手：久松猛朗（東京国際映画祭ディレクター）。</p>
+        </div>
+        <div class="card">
+          <p class="part-tag">PART 3</p>
+          <p class="part-title">映画業界交流会</p>
+          <p class="part-body">楽しいプレゼント抽選会！ご参加の皆様は名刺をご提出いただくだけで自動的に抽選対象となります。<br>詳細は後日お知らせします。</p>
+        </div>
+      </div>
+
+      <div class="footer-strip">
+        <div class="fee-block">
+          <p class="fee-label">参加費</p>
+          <p class="fee-amount">¥5,000</p>
+        </div>
+        <div class="reg-block">
+          <p class="reg-label">事前登録制<br>RSVPフォームをご利用ください &gt;&gt;</p>
+          <p class="reg-note">メール・電話での参加確認は受け付けておりません。</p>
+        </div>
+        <a href="https://forms.gle/NsbvddwEHR2kNFyT9" class="rsvp-btn">RSVPフォーム →</a>
+      </div>
+    </div>
+
+    <div class="band"></div>
+  </div>
+  </div>
+</div>
+
+<div class="lang-toggle"><a href="otomo_invite_en_exact.html">View in English</a></div>
+
+<script>
+  // Scales the fixed 1600x900 stage to fit the available width, preserving
+  // every pixel ratio inside it exactly (text, spacing, borders all scale together).
+  function fitStage() {
+    var stage = document.getElementById('stage');
+    var page = stage.closest('.page');
+    var available = page.clientWidth - 28; // account for side padding
+    var scale = Math.min(1, available / 1600);
+    stage.style.transform = 'scale(' + scale + ')';
+    stage.closest('.scale-wrap').style.width = (1600 * scale) + 'px';
+    stage.closest('.scale-wrap').style.height = (900 * scale) + 'px';
+  }
+  window.addEventListener('resize', fitStage);
+  window.addEventListener('DOMContentLoaded', fitStage);
+  fitStage();
+</script>
+
+</body>
+</html>

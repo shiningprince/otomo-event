@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Evening With Film Director Keishi Otomo — Film Industry Networking Night</title>
+<style>
+  :root {
+    --bg: #F4E4BC;
+    --card: #FFFBF0;
+    --card-highlight: #FFF3D6;
+    --gold: #9C6B16;
+    --dark: #2A1F0F;
+    --body-text: #4A3B22;
+    --gray: #7A6A4A;
+    --border: #E8DCC0;
+    --band: #6B4A12;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1c140a;
+  }
+
+  .page {
+    display: flex;
+    justify-content: center;
+    padding: 28px 14px;
+    overflow-x: auto;
+  }
+
+  /* .scale-wrap sizes the space the scaled stage will occupy in the page.
+     .stage is always exactly 1600x900px, then scaled down by .scale-wrap's transform
+     to fit the viewport. This keeps every px font-size and px spacing value
+     in a fixed, predictable ratio to every other element — nothing inside
+     .stage ever reflows or squeezes independently. */
+  .scale-wrap {
+    width: 1600px;
+    height: 900px;
+    flex-shrink: 0;
+  }
+
+  .stage {
+    width: 1600px;
+    height: 900px;
+    background: var(--bg);
+    box-shadow: 0 14px 50px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: top left;
+  }
+
+  .band { flex: 0 0 11px; background: var(--band); }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 64px;
+    padding-top: 24px;
+    min-height: 0;
+  }
+
+  /* "FILM INDUSTRY NETWORKING NIGHT" — small label above the title */
+  .eyebrow {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 0.9%;
+  }
+
+  /* "An Evening With Film Director..." — main headline */
+  h1.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 57px;
+    color: var(--dark);
+    margin: 0 0 1%;
+    line-height: 1.2;
+  }
+
+  /* Italic sentence below the headline */
+  .hook {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--body-text);
+    margin: 0 0 2.2%;
+  }
+
+  .venue-strip {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 1.2% 1.5%;
+    text-align: center;
+    margin-bottom: 2.4%;
+  }
+
+  /* Date / venue line inside the cream strip */
+  .venue-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    color: var(--body-text);
+    margin: 0;
+  }
+  .venue-time {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: var(--gray);
+    margin: 4px 0 0;
+  }
+
+  .cards {
+    display: flex;
+    gap: 1.1%;
+    margin-bottom: 2%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .card {
+    border-radius: 14px;
+    background: var(--card);
+    border: 1.3px solid var(--border);
+    flex: 1;
+    padding: 0.8% 1.3% 2.2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 0;
+  }
+  .card.featured {
+    background: var(--card-highlight);
+    border: 2.6px solid var(--gold);
+    flex: 1.45;
+  }
+
+  /* "PART 1" / "PART 2" / "PART 3" small label in each card */
+  .part-tag {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 23px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 10px;
+  }
+
+  /* Bold title inside each card (e.g. "Networking Reception - New Format") */
+  .part-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--dark);
+    line-height: 1.4;
+    margin: 0 0 11px;
+  }
+
+  /* Body paragraph in PART 1 and PART 3 cards (narrow cards) */
+  .part-body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--body-text);
+    margin: 10px 0 0;
+  }
+  /* Body paragraph in PART 2 card ONLY (the wider, highlighted card) — this is the one that was overflowing */
+  .card.featured .part-body {
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+  }
+
+  .footer-strip {
+    background: var(--card);
+    border: 1.3px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 1.6% 1.8%;
+    margin-bottom: 2.7%;
+    flex: 0 0 auto;
+  }
+
+  .fee-block {
+    text-align: center;
+    flex: 0 0 auto;
+    padding-right: 1.8%;
+    border-right: 1.3px solid var(--border);
+  }
+
+  /* "PARTICIPATION FEE" and "ADVANCE REGISTRATION..." labels in the footer */
+  .fee-label, .reg-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  /* "¥5,000" big number */
+  .fee-amount {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: var(--gold);
+    margin: 0;
+  }
+
+  .reg-block {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* "Confirmations by..." small note under the registration label */
+  .reg-note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    color: var(--body-text);
+    margin: 6px 0 0;
+    line-height: 1.4;
+  }
+
+  /* Text inside the dark RSVP button */
+  .rsvp-btn {
+    flex: 0 0 auto;
+    background: var(--dark);
+    border-radius: 14px;
+    color: var(--bg);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-decoration: none;
+    padding: 1.4% 2%;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-toggle {
+    text-align: center;
+    padding: 16px 0 0;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+  }
+  .lang-toggle a {
+    color: #c9a86a;
+    text-decoration: none;
+    border-bottom: 1px solid #c9a86a;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="scale-wrap">
+  <div class="stage" id="stage">
+    <div class="band"></div>
+
+    <div class="content">
+      <p class="eyebrow">Film Industry Networking Night</p>
+      <h1 class="title">An Evening With Film Director Keishi Otomo</h1>
+      <p class="hook">Hear directly from the director who made Rurouni Kenshin a massive multi-title success — his path to independence, the secrets behind his biggest works, and what's next. Plus, a full evening to meet and connect with new fellow industry professionals.</p>
+
+      <div class="venue-strip">
+        <p class="venue-text">📅&nbsp; Friday, July 17, 2026 &nbsp;&nbsp;&nbsp; 📍&nbsp; Global Village Yurakucho House (Yurakucho Denki Bldg. North 2F)</p>
+        <p class="venue-time">🕕&nbsp; Doors 6:00 PM&nbsp;&nbsp;&nbsp;Program 6:30–9:30 PM</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <p class="part-tag">Part 1</p>
+          <p class="part-title">Film Industry Networking Party Start</p>
+          <p class="part-body">All-you-can-drink beverages served. Host: Geoffrey Bossiere (Former Representative, 20th Century Fox Japan, IMAX Japan, Hulu Japan).</p>
+        </div>
+        <div class="card featured">
+          <p class="part-tag">Part 2</p>
+          <p class="part-title">Special Guest Interview &nbsp;*Japanese only</p>
+          <p class="part-body">Guest: Keishi Otomo (Director / Screenwriter) — known for the NHK dramas Ryomaden and Hagetaka, his path from NHK to Hollywood to independence, and hugely successful 5-part series Rurouni Kenshin and the Warner Bros. deal. Host: Takeo Hisamatsu, Tokyo Int'l Film Festival Director.</p>
+        </div>
+        <div class="card">
+          <p class="part-tag">Part 3</p>
+          <p class="part-title">Film Industry Dinner &amp; Drinks Free Time Networking</p>
+          <p class="part-body">Fun prize drawing giveaway! All participants automatically entered – with business card. Additional details to follow.</p>
+        </div>
+      </div>
+
+      <div class="footer-strip">
+        <div class="fee-block">
+          <p class="fee-label">Participation Fee</p>
+          <p class="fee-amount">¥5,000</p>
+        </div>
+        <div class="reg-block">
+          <p class="reg-label">Advance Registration Required<br>Use RSVP form &gt;&gt;</p>
+          <p class="reg-note">Confirmations by email or phone will not be accepted.</p>
+        </div>
+        <a href="https://forms.gle/NsbvddwEHR2kNFyT9" class="rsvp-btn">RSVP Form →</a>
+      </div>
+    </div>
+
+    <div class="band"></div>
+  </div>
+  </div>
+</div>
+
+<div class="lang-toggle"><a href="otomo_invite_jp_exact.html">日本語で見る</a></div>
+
+<script>
+  // Scales the fixed 1600x900 stage to fit the available width, preserving
+  // every pixel ratio inside it exactly (text, spacing, borders all scale together).
+  function fitStage() {
+    var stage = document.getElementById('stage');
+    var page = stage.closest('.page');
+    var available = page.clientWidth - 28; // account for side padding
+    var scale = Math.min(1, available / 1600);
+    stage.style.transform = 'scale(' + scale + ')';
+    stage.closest('.scale-wrap').style.width = (1600 * scale) + 'px';
+    stage.closest('.scale-wrap').style.height = (900 * scale) + 'px';
+  }
+  window.addEventListener('resize', fitStage);
+  window.addEventListener('DOMContentLoaded', fitStage);
+  fitStage();
+</script>
+
+</body>
+</html>
